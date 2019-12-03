@@ -50,6 +50,7 @@ body {
 
 .text-box {
     position: absolute;
+    /* Since bottom is sliced off, center is slightly up */
     top: 40%;
     left: 50%;
     /* This moves it to the left so it's center page */
@@ -123,6 +124,19 @@ body {
     }
 }
 
+@keyframes moveInBottom {
+    0% {
+        opacity: 0;
+        transform: translateY(30px)
+    }
+
+    100% {
+        opacity: 1;
+        /* This is the original starting location */
+        transform: translate(0);
+    }
+}
+
 .btn:link,
 .btn:visited {
     text-transform: uppercase;
@@ -131,6 +145,7 @@ body {
     display: inline-block;
     border-radius: 100px;
     transition: all .2s;
+    position: relative;
 }
 
 .btn:hover {
@@ -146,4 +161,32 @@ body {
 .btn-white {
     background-color: #ffffff;
     color: #777777;
+}
+
+.btn::after {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    border-radius: 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all .4s;
+}
+
+.btn::after {
+    background-color: #fff;
+}
+
+.btn:hover::after {
+    transform: scaleX(1.4) scaleY(1.6);
+    opacity: 0;
+}
+
+.btn-animated {
+    animation: moveInBottom 0.5s ease-out .75s;
+    /* This makes it so it appears from nothing */
+    animation-fill-mode: backwards;
 }
